@@ -107,4 +107,5 @@ To show all remote branches:
 git branch -r
 
 To track a new remote branch:
-git fetch; git checkout new_feature_name
+git checkout --track -b new_feature_name origin/new_feature_name
+
