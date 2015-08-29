@@ -1,0 +1,20 @@
+# only done once to initially set up repository
+git clone gitolite@leavitt.lsa.umich.edu:vgn-ext-templating
+# Go to the correct branch, and get any updated files
+git checkout dev
+#Make your modifications here
+#Add all new files
+git add -A
+# Stage any modified files
+git commit -am "This is the modification I made for ticket #234"
+git push
+git merge master
+#do dev testing here
+git checkout qa
+git merge dev
+#do qa testing here
+git checkout qa
+git merge prod
+#do prod testing here
+
+

@@ -1,0 +1,20 @@
+Admins install git client as per user instructions (windows, mac). Linux users should use their favorite package manager, and set up ssh key similarly.
+
+Admins need to create a local account for any added user on leavitt.lsa.umich.edu before following these instructions.
+
+#next step only used the first time an admin makes changes to gitolite:
+git clone gitolite@leavitt.lsa.umich.edu:gitolite-admin
+#The rest is for every time you update
+cd gitolite-admin
+git pull
+cd keydir
+#add the public keys (files named following <uniqname>.pub)
+cd ../conf
+#edit the gitolite.conf file and add the userids to the relevant group (designer, admin, developer, etc.)
+cd ..
+git add -A
+git commit -am "Added new keys and rights for <uniqname>"
+git push origin master
+#done!
+
+This is the simplest case. The vignette user has a distinct key per tier, so it has keys organized in subdirectories below keydir, and the keys were generated as vignette@dev, vignette@qa, vignette@prod. The file names are still vignette.pub. 

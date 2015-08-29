@@ -1,0 +1,110 @@
+#Initial Setup by project originator
+------------
+git clone gitolite@leavitt.lsa.umich.edu:testing
+cd testing
+notepad welcome.txt
+git add -A
+git commit -am "Added Welcome.txt, pushing to Master"
+git push origin master
+git branch --set-upstream master origin/master
+git branch PROD
+git checkout PROD
+notepad welcome.txt
+git commit -am "Altered Welcome.txt, created PROD branch"
+git push origin PROD
+git branch --set-upstream PROD origin/PROD
+git branch QA
+git checkout QA
+notepad welcome.txt
+git commit -am "Altered Welcome.txt, created QA branch"
+git push origin QA
+git branch --set-upstream QA origin/QA
+git branch DEV
+git checkout DEV
+notepad welcome.txt
+git commit -am "Altered Welcome.txt, created DEV branch"
+git push origin DEV
+git branch --set-upstream DEV origin/DEV
+#---------------------
+# This is what any other user would do for initial setup
+#---------------------
+git clone gitolite@leavitt.lsa.umich.edu:testing
+git checkout --track -b DEV origin/DEV
+git checkout --track -b DEV origin/QA
+git checkout --track -b QA origin/PROD
+
+#Day to Day
+#creating your own modifications
+
+git fetch
+git checkout PROD
+git pull origin PROD
+git branch new_topic_branch
+git checkout new_topic_branch
+notepad welcome.txt
+git commit -am "Altered Welcome.txt, created new topic branch"
+git push origin new_topic_branch
+git branch --set-upstream new_topic_branch origin/new_topic_branch
+
+git fetch
+git checkout DEV
+git pull origin DEV
+git merge new_topic_branch
+git push origin DEV
+#Test your changes and find FAILURE!
+git clean -df
+git checkout -- .
+
+git checkout new_topic_branch
+#Make any DEV Changes
+git commit -am "Fixed to make DEV work"
+git push origin new_topic_branch
+git fetch
+git checkout DEV
+git pull origin DEV
+git merge new_topic_branch
+git push origin DEV
+#Testing success!
+git checkout QA
+git pull origin QA
+git merge new_topic_branch
+#Merge Conflict!
+git mergetool
+git commit -am "Resolved QA conflict"
+git clean -df
+git push origin QA
+git checkout PROD
+git pull origin PROD
+git merge new_topic_branch
+git push origin PROD
+
+
+
+Creating Branch Method #1
+git push origin HEAD:refs/heads/new_feature_branch
+git fetch origin
+git branch -r
+git checkout --track -b new_feature_name origin/new_feature_name
+git pull
+
+Creating Branch Method #2
+git branch new_feature_branch
+git checkout new_feature_branch
+git push -u origin new_feature_branch
+
+Creating Branch Method #3
+git branch new_feature_branch
+git checkout new_feature_branch
+git push origin new_feature_branch
+git branch --set-upstream new_feature_name origin/new_feature
+
+
+To delete branch:
+git push origin :/heads/new_feature_name
+git branch -d new_feature_name
+
+To show all remote branches:
+git branch -r
+
+To track a new remote branch:
+git fetch; git checkout new_feature_name

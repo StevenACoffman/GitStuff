@@ -1,0 +1,78 @@
+Command Line method
+
+# only done once to initially set up repository
+git clone gitolite@leavitt.lsa.umich.edu:vgn-ext-templating
+# Go to the correct branch, and get any updated files
+git checkout
+git checkout --track origin/PROD
+#create new topic branch and update to it (starts with uniqname, has ticket number)
+git checkout -b 'gears-ticket-343-Event-Code' 
+#Make your modifications here
+#Add all new files
+git add -A
+# Stage any modified files
+git commit -am "This is the modification I made for ticket #234"
+git push
+git checkout origin/DEV
+git fetch
+git merge origin/DEV
+git merge origin/master
+#do dev testing here
+git checkout origin/QA
+git merge 'gears-ticket-343-Event-Code'
+#do qa testing here
+git checkout PROD
+git merge 'gears-ticket-343-Event-Code'
+#do prod testing here
+
+-----------------
+Using Eclipse and EGit
+Setup your Eclipse SSH Configuration
+Open Window -> Preferences and search for "ssh"
+Select General -> Network Connections -> SSH2, and then pick the General tab, and make sure the SSH2 home matches where you store your id_rsa (private key) like a .ssh directory in your home directory. 
+
+Start the import wizard by navigating to File -> Import... and choose "Git Repository". 
+Repository Selection  - Enter the URI as this:
+ssh://gitolite@leavitt.lsa.umich.edu/vgn-ext-templating
+ssh://gitolite@leavitt.lsa.umich.edu/testing
+Branch selection  - Choose all the branches to be cloned from the remote repository (DEV, QA, and PROD).
+Local Destination - On the next page define where you want to store the repository on your file system and define some initial settings. 
+Import Projects - On the next page the Eclipse projects found in the cloned repository are presented. 
+Make sure to check the "Enable Git Team operations on imported projects " checkbox.
+
+Configure branches, create local DEV, QA, and PROD branches and configure them to have upstream remote DEV, QA, PROD.
+Rebase or Merge?
+
+
+Switch to Project Explorer {Java EE}
+
+Right Click on vgn-ext-templating project, select Team -> Remote -> Configure Fetch
+Ref mappings should be "+refs/heads/*:refs/remotes/origin/*" (no quotes) and then Save
+
+Right Click on vgn-ext-templating project, select Team -> Remote -> Configure Pull
+Ref mappings should be "+refs/heads/*:refs/remotes/origin/*" (no quotes) and then save
+
+------------------------------
+
+Right Click on vgn-ext-templating project, select Team -> Switch to DEV
+
+Make some changes.
+
+Right Click on vgn-ext-templating project, select Team ->  
+
+
+Checkout PROD
+Pull
+Branch new temporary [topic] branch
+Modify files
+Stage (add)
+Commit
+Push
+Test Locally
+Merge DEV
+Test on DEV
+Merge QA
+Test on QA
+Merge PROD 
+Test on PROD
+Delete branch

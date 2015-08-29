@@ -1,0 +1,93 @@
+On Windows, you need to download and install PuTTY and WinSCP.
+For PuTTY follow this link and download and install the putty-0.62-installer.exe on it:
+http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+
+Run PuTTY (from the start menu), and connect to leavitt.lsa.umich.edu
+
+Use your email account userid and password, then follow the instructions below, substituting your uniqname for gears. In fact, if you want to find and replace all occurences of "gears" in this document with your uniqname, that would be best.
+
+When prompted, it is recommended to use a passphrase you can easily remember. 
+[gears@leavitt ~]$ ssh-keygen -C "gears@umich.edu"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/gears/.ssh/id_rsa): 
+Created directory '/home/gears/.ssh'.
+Enter passphrase (empty for no passphrase): [Type a passphrase]
+Enter same passphrase again: [Type passphrase again]
+Your identification has been saved in /home/gears/.ssh/id_rsa.
+Your public key has been saved in /home/gears/.ssh/id_rsa.pub.
+The key fingerprint is:
+a9:fc:07:e8:d2:20:36:22:f8:00:c2:17:ea:5c:3b:a8 gears@leavitt.lsa.umich.edu
+The key's randomart image is:
+    (some unimportant output deleted)
+    
+[gears@leavitt ~]$ cd
+[gears@leavitt ~]$ chmod a+r .
+[gears@leavitt ~]$ chmod go-w .
+[gears@leavitt ~]$ mkdir public
+[gears@leavitt ~]$ chmod a+r public
+[gears@leavitt ~]$ cp ~/.ssh/id_rsa.pub ~/public/gears.pub
+[gears@leavitt ~]$ ssh-copy-id -i ~/.ssh/id_rsa.pub gears@leavitt.lsa.umich.edu
+[gears@leavitt ~]$ cat ~gears/public/bash_profile_addition >> .bash_profile
+[gears@leavitt ~]$ chmod go-rwx ~/.ssh
+[gears@leavitt ~]$ logout
+
+- Next send me an email that this has been done.
+
+- Get the keys to your workstation.
+
+1. Open WinSCP
+2. Change the Protocol to SCP
+3. change the Hostname to leavitt.lsa.umich.edu
+4. Click the Login Button
+5. Change the local (right side) directory to C:\Users\gears
+6. Drag the .ssh folder from the remote (left side) to the local (right side) and click Copy
+7. Exit WinSCP
+
+
+
+
+ - Set the environment variable GIT_SSH to point to plink.exe,
+   for example "C:\Progra~2\PuTTY\plink.exe" without the quotes (on 32 bit windows, it will be Progra~1)
+   To do this:
+			1. Open the Start Menu, Right Click on My Computer (between Music and Control panel will be something like LDEV-DZM64J1), and select Properties.
+			2. In the window that opens (Control Panel -> System and Security -> System), select "Advanced system settings"
+			3. In the System Properties window that pops up, click the Environment Variables button near the bottom.
+			4. Add a new System variable with Variable name "GIT_SSH" without the quotes and Variable value "C:\Progra~2\PuTTY\plink.exe"
+
+ - Use PuTTYgen to import an existing key (menu Conversions >
+   Import) and save it in PuTTY format (menu File > Save private
+   key) to the file "C:\Users\gears\.ssh\id_putty.ppk" without quotes.
+   It is recommended that you set a pass phrase on your
+   key.  If you do not have a key yet you can use PuTTYgen to
+   create a new one.
+
+ - Add Pageant to your Autostart menu and modify the Pageant
+   entry in the Autostart menu to automatically load your private
+   key on startup.  To do so, create a new shortcut in the folder:
+   C:\Users\gears\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+   
+   
+   Type the location of the item like this:
+   "C:\Progra~2\PuTTY\pageant.exe C:\Users\gears\.ssh\id_putty.ppk" (without quotes).
+   
+   Name it pageant.exe
+
+ - Upon your next login Pageant should automatically start, ask
+   for your pass phrase, and display itself as a small icon in
+   the bottom right of the menu bar displaying a computer with a
+   hat.  You can right click the icon to manage your keys.
+   
+ - Include your login name in git urls.  Otherwise plink.exe will
+   report strange errors.
+   
+   Install Git if you have not already done so:
+   http://code.google.com/p/msysgit/ 
+   
+   Open a new DOS shell (start menu, type cmd.exe)
+   
+   # Configure the user which will be used by git
+# Of course you should use your name
+git config --global user.name "Example Surname"
+# Same for your email address
+git config --global user.email "gears@umich.edu" 
+

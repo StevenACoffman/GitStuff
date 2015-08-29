@@ -1,0 +1,64 @@
+Initial Setup:
+-------------
+File -> Import, select Git -> Projects from Git, and click Next
+In Select Repository Source, Pick URI and Next
+For the URI enter:
+ssh://gitolite@leavitt.lsa.umich.edu/testing and click Next
+Keep DEV, QA, PROD, and master selected, but unselect all the rest and then click Next.
+For Local Destination, Have the directory as C:\users\gears\workspace\testing
+For Select a Wizard to use for importing projects, choose "Use the New Project wizard"
+Select Java Project, Next
+For "Create a Java Project", type the name "testing",and click Next, then Finish
+
+Go to Git Repository Exploring View
+Right click on the repository, and select Switch To -> New Branch...
+The Create Branch Wizard opens, select source ref: refs/remotes/origin/PROD and Branch name: PROD
+Set Pull Strategy to "Merge", click Finish
+Right click on the repository, and select Switch To -> New Branch...
+The Create Branch Wizard opens, select source ref: refs/remotes/origin/QA and Branch name: QA
+Set Pull Strategy to "Merge", click Finish
+Right click on the repository, and select Switch To -> New Branch...
+The Create Branch Wizard opens, select source ref: refs/remotes/origin/DEV and Branch name: DEV
+Set Pull Strategy to "Merge", click Finish
+
+-------
+Day to Day Process begins here!
+----
+
+Switch to Java EE view
+Right click on the project, and select Team->Fetch From Upstream...
+Right click on the project, and select Team->Switch To -> PROD
+Right click on the project, and select Team->Pull
+Right click on the project, and select Team->Switch To -> New Branch...
+The Create Branch Wizard opens, select source ref: refs/heads/PROD and Branch name: another_branch
+Set Pull Strategy to "Merge", click Finish
+Make your modifications.
+Right click on the project, and select Team->Commit, and enter a meaningful commit message
+Right click on the project, and select Team->Fetch From Upstream...
+Check the "Push the changes to upstream" check box and click the Commit button
+Right click on the project, and select Team->Switch To -> DEV
+Right click on the project, and select Team->Pull
+Right click on the project, and select Team->Merge
+Select Remote Tracking / another_branch, leave merge options as "commit", and click the Merge button
+Right click on the project, and select Team->Fetch From Upstream...
+Right click on the project, and select Team->Push to Upstream
+
+Right click on the project, and select Team->Fetch From Upstream...
+Right click on the project, and select Team->Switch To -> QA
+Right click on the project, and select Team->Pull
+Right click on the project, and select Team->Merge
+Select Remote Tracking / another_branch, leave merge options as "commit", and click the Merge button
+Right click on the project, and select Team->Fetch From Upstream...
+Right click on the project, and select Team->Push to Upstream
+
+Right click on the project, and select Team->Switch To -> PROD
+Right click on the project, and select Team->Pull
+Right click on the project, and select Team->Merge
+Select Remote Tracking / another_branch, leave merge options as "commit", and click the Merge button
+Right click on the project, and select Team->Push to Upstream
+
+Right click on the project, and select Team-> Remote -> Push... from the menu. 
+In the Push to Another Repository Wizard, on the Destination Git Repository, Select your repository, and click Next.
+In the Push Ref Specifications, Under Remote ref to delete: select another_branch and click Add spec. Then click Finish. This should delete the remote branch.
+Switch to Git Repository Exploring View, expand remote tracking and delete another_branch.
+
